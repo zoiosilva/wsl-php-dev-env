@@ -1,6 +1,8 @@
 # wsl-php-dev-env
 This is the scripts I run to build up a new WSL environment for personal development use.
 
+# When checking out, don't forget to check the line endings on the .sh files. It MUST be linux style.
+
 Using a fresh new WSL environment.
 
 First I run this:  
