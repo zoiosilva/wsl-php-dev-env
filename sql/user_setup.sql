@@ -1,0 +1,15 @@
+CREATE DATABASE wp_loja;
+CREATE DATABASE d7_estude;
+CREATE DATABASE d7_sandbox;
+CREATE DATABASE d8_estude;
+CREATE DATABASE d8_heitor;
+CREATE USER 'zoio'@'localhost' IDENTIFIED BY 'Zoio1234';
+CREATE USER 'wpsys'@'localhost' IDENTIFIED BY 'Wordpress984532';
+CREATE USER 'drupalsys'@'localhost' IDENTIFIED BY 'Drupal126578';
+GRANT ALL PRIVILEGES ON *.* TO 'zoio'@'localhost';
+GRANT ALL PRIVILEGES ON wp_loja.* TO 'wpsys'@'localhost';
+GRANT ALL PRIVILEGES ON d7_estude.* TO 'drupalsys'@'localhost';
+GRANT ALL PRIVILEGES ON d7_sandbox.* TO 'drupalsys'@'localhost';
+GRANT ALL PRIVILEGES ON d8_estude.* TO 'drupalsys'@'localhost';
+GRANT ALL PRIVILEGES ON d8_heitor.* TO 'drupalsys'@'localhost';
+FLUSH PRIVILEGES;

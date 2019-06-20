@@ -1,0 +1,42 @@
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/apache-selfsigned.key -out /etc/ssl/certs/apache-selfsigned.crt -subj "/C=BR/ST=Mato Grosso do Sul/L=Dourados/O=Consizo/OU=Local Development/CN=*.zoiosilva.com" -extfile /mnt/d/Dados/ubuntu/v3.ext
+
+sudo cp /mnt/d/Dados/ubuntu/ssl-params.conf /etc/apache2/conf-available/
+sudo cp /etc/apache2/sites-available/default-ssl.conf /etc/apache2/sites-available/default-ssl.conf.bak
+sudo cp -f /mnt/d/Dados/ubuntu/default-ssl.conf /etc/apache2/sites-available/
+sudo cp -f /mnt/d/Dados/ubuntu/000-default.conf /etc/apache2/sites-available/000-default.conf
+
+
+
+printf "\nSTEP: Criando certificados e habilitando SSL no Apache, conforme artigo 7...\n"
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/apache-selfsigned.key -out /etc/ssl/certs/apache-selfsigned.crt -subj "/C=BR/ST=Mato Grosso do Sul/L=Dourados/O=Consizo/OU=Local Development/CN=*.zoiosilva.com" -extfile $SRC_FOLDER/v3.ext
+sudo update-ca-certificates
+sudo cp $SRC_FOLDER/ssl-params.conf /etc/apache2/conf-available/
+sudo cp /etc/apache2/sites-available/default-ssl.conf /etc/apache2/sites-available/default-ssl.conf.bak
+sudo cp -f $SRC_FOLDER/default-ssl.conf /etc/apache2/sites-available/
+sudo cp -f $SRC_FOLDER/000-default.conf /etc/apache2/sites-available/000-default.conf
+sudo a2enmod ssl
+sudo a2enmod headers
+sudo a2ensite default-ssl
+sudo a2enconf ssl-params
+#sudo apache2ctl configtest
+
+
+
+
+printf "\nSTEP: Instalação do simpleSAMLphp..."
+cd /var/
+sudo wget https://github.com/simplesamlphp/simplesamlphp/releases/download/v$SAML_VER/simplesamlphp-$SAML_VER.tar.gz
+sudo tar xzf simplesamlphp-$SAML_VER.tar.gz
+sudo mv simplesamlphp-$SAML_VER simplesamlphp
+sudo rm /var/simplesamlphp-$SAML_VER.tar.gz
+#TODO: Instalar módulo drupalauth. https://github.com/AngelAlvarado/drupalauth/archive/drupalauth-1.2.2_1.x_7.x.tar.gz
+
+
+
+# Senha: $MYSQL_ROOT
+sudo openssl genrsa -des3 -out rootCA.key 2048 #| yes Root1234
+sudo openssl req -x509 -new -nodes -key rootCA.key -sha256 -days 1024 -out /usr/local/share/ca-certificates/rootCA.pem -subj "/C=BR/ST=Mato Grosso do Sul/L=Dourados/O=Consizo/OU=Local Development/CN=*.zoiosilva.com"
+sudo update-ca-certificates
+openssl req -new -sha256 -nodes -out server.csr -newkey rsa:2048 -keyout server.key -config <( cat $SRC_FOLDER/server.csr.cnf )
+sudo openssl x509 -req -in server.csr -CA rootCA.pem -CAkey rootCA.key -CAcreateserial -out server.crt -days 500 -sha256 -extfile $SRC_FOLDER/v3.ext
+

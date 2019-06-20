@@ -1,0 +1,4 @@
+DROP DATABASE wppoc;
+CREATE DATABASE wppoc;
+GRANT ALL PRIVILEGES ON wppoc.* TO 'wpsys'@'localhost';
+FLUSH PRIVILEGES;

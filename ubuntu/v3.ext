@@ -1,0 +1,13 @@
+authorityKeyIdentifier=keyid,issuer
+basicConstraints=CA:FALSE
+keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = localhost
+DNS.2 = zoiosilva.com
+DNS.3 = d7.zoiosilva.com
+DNS.4 = d7auth.zoiosilva.com
+DNS.5 = d7sandbox.zoiosilva.com
+DNS.6 = d8.zoiosilva.com
+DNS.7 = auth.zoiosilva.com
