@@ -8,7 +8,7 @@
   # && sudo mount -t drvfs D: /mnt/d -o metadata,uid=1000,gid=1000
 # END
 
-set -o errexit
+# set -o errexit
 set -o pipefail
 set -o nounset
 # set -o xtrace
@@ -54,7 +54,6 @@ sudo add-apt-repository -y ppa:ondrej/php
 sudo apt update
 
 printf "\nSTEP: Atualizando pacotes nativos...\n"
-sudo apt upgrade -yqq
 sudo apt dist-upgrade -yqq
 
 printf "\nSTEP: Atualizando o release do Ubuntu...\n"
@@ -92,7 +91,7 @@ php -r "unlink('composer-setup.php');"
 sudo mv composer.phar /usr/local/bin/composer
 
 printf "\nSTEP: Instalando o Yarn e o Gulp...\n"
-wget -qO- https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+wget -qO- https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor > /etc/apt/trusted.gpg.d/yarn.gpg
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 sudo apt update -yqq && sudo apt install -yqq yarn
 sudo npm install -g gulp
