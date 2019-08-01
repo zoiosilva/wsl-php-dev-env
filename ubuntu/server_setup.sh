@@ -141,19 +141,21 @@ sudo mysql -uroot -p$MYSQL_ROOT wp_loja < $SRC_FOLDER/../sql/wp_loja.sql
 sudo mysql -uroot -p$MYSQL_ROOT d7_estude < $SRC_FOLDER/../sql/d7_estude.sql
 
 printf "\nSTEP: Configurando o git...\n"
-git config --global user.name     "Zoio Silva"
-git config --global user.email    "zoiosilva@yahoo.com.br"
-git config --global core.safecrlf false
-git config --global core.autocrlf true
-git config --global alias.s       status
-git config --global alias.co      checkout
-git config --global alias.c       commit
-git config --global alias.psu     'push --set-upstream origin'
-git config --global alias.df      difftool
-git config --global alias.uf      '!git fetch upstream && git checkout master && git merge upstream/master && git push && git pull --prune'
-git config --global alias.pp      'pull -p'
-git config --global alias.unstage 'reset HEAD --'
-git config --global alias.fire    "!git add . && git commit -m 'FOGOOOO!!!' && git push"
+git config --global user.name       "Zoio Silva"
+git config --global user.email      "zoiosilva@yahoo.com.br"
+#git config --global user.signingkey 0E0F9B70941A8955
+git config --global commit.gpgsign  true
+git config --global core.safecrlf   false
+git config --global core.autocrlf   true
+git config --global alias.s         status
+git config --global alias.co        checkout
+git config --global alias.c         commit
+git config --global alias.psu       'push --set-upstream origin'
+git config --global alias.df        difftool
+git config --global alias.uf        '!git fetch upstream && git checkout master && git merge upstream/master && git push && git pull --prune'
+git config --global alias.pp        'pull -p'
+git config --global alias.unstage   'reset HEAD --'
+git config --global alias.fire      "!git add . && git commit -m 'FOGOOOO!!!' && git push"
 
 printf "\nSTEP: Instalando e configurando o validador de padrão de código para php...\n"
 composer global require "squizlabs/php_codesniffer=*" "wp-coding-standards/wpcs" "drupal/coder"
