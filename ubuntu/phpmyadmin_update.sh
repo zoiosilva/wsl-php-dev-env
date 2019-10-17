@@ -1,5 +1,5 @@
 #!/bin/bash
-PHPMYADMIN_VER="4.9.0.1"
+PHPMYADMIN_VER="4.9.1"
 
 printf "\nSTEP: Atualização manual do PhpMyAdmin...\n"
 sudo mv /usr/share/phpmyadmin/ /usr/share/phpmyadmin.bak
